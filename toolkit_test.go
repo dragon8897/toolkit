@@ -2,6 +2,6 @@ package toolkit
 
 import "testing"
 
-func TestHello(t *testing.T) {
-	Hello()
+func TestVersion(t *testing.T) {
+	Version()
 }
