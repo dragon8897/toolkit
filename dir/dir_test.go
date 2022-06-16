@@ -18,3 +18,20 @@ func TestWalk(t *testing.T) {
 		}
 	}
 }
+
+func TestIsDir(t *testing.T) {
+	var tests = []struct {
+		d string
+		f bool
+	}{
+		{".", true},
+		{"../file", true},
+		{"./dir", false},
+	}
+	for _, tt := range tests {
+		actual := IsDir(tt.d)
+		if actual != tt.f {
+			t.Errorf("test failed: %v, %v with %v", tt.d, tt.f, actual)
+		}
+	}
+}

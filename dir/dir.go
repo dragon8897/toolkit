@@ -28,13 +28,18 @@ func walkDir(dir string, base string) (files []string) {
 }
 
 func Walk(d string) (files []string) {
+	if !IsDir(d) {
+		return
+	}
+	files = walkDir(d, "")
+	return
+}
+
+func IsDir(d string) (ret bool) {
 	s, err := os.Stat(d)
 	if err != nil {
 		return
 	}
-	if !s.IsDir() {
-		return
-	}
-	files = walkDir(d, "")
+	ret = s.IsDir()
 	return
 }
