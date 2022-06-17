@@ -1,6 +1,9 @@
 package dir
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
 func TestWalk(t *testing.T) {
 	var tests = []struct {
@@ -32,6 +35,15 @@ func TestIsDir(t *testing.T) {
 		actual := IsDir(tt.d)
 		if actual != tt.f {
 			t.Errorf("test failed: %v, %v with %v", tt.d, tt.f, actual)
+		}
+	}
+}
+
+func TestList(t *testing.T) {
+	fs := List(".", WithExt([]string{".go"}))
+	for _, f := range fs {
+		if !strings.HasSuffix(f, ".go") {
+			t.Errorf("%s not with ext .go", f)
 		}
 	}
 }
