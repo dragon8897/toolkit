@@ -87,7 +87,7 @@ func List(d string, opts ...ListOptions) (files []string) {
 		if isContinue {
 			continue
 		}
-		files = append(files, path.Join(d, name))
+		files = append(files, name)
 	}
 	return
 }
