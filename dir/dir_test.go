@@ -40,10 +40,16 @@ func TestIsDir(t *testing.T) {
 }
 
 func TestList(t *testing.T) {
-	fs := List(".", WithExt([]string{".go"}))
+	fs := List(".", WithExt("go"))
 	for _, f := range fs {
 		if !strings.HasSuffix(f, ".go") {
 			t.Errorf("%s not with ext .go", f)
+		}
+	}
+	fs = List("..", WithNoExt("go"))
+	for _, f := range fs {
+		if strings.HasSuffix(f, ".go") {
+			t.Errorf("%s with ext .go", f)
 		}
 	}
 }

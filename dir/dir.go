@@ -37,11 +37,11 @@ func Walk(d string) (files []string) {
 
 type ListOptions func(name string) bool
 
-func WithExt(exts []string) func(p string) bool {
+func WithExt(exts ...string) func(p string) bool {
 	return func(p string) (ret bool) {
 		ext := path.Ext(p)
 		for _, v := range exts {
-			if v == ext {
+			if "."+v == ext {
 				ret = true
 				return
 			}
@@ -50,11 +50,11 @@ func WithExt(exts []string) func(p string) bool {
 	}
 }
 
-func WithNoExt(exts []string) func(p string) bool {
+func WithNoExt(exts ...string) func(p string) bool {
 	return func(p string) (ret bool) {
 		ext := path.Ext(p)
 		for _, v := range exts {
-			if v == ext {
+			if "."+v == ext {
 				ret = false
 				return
 			}
