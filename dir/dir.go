@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"regexp"
 )
 
 func walkDir(dir string, base string) (files []string) {
@@ -60,6 +61,14 @@ func WithNoExt(exts ...string) func(p string) bool {
 			}
 		}
 		ret = true
+		return
+	}
+}
+
+func WithReg(exp string) func(p string) bool {
+	return func(p string) (ret bool) {
+		re := regexp.MustCompile(exp)
+		ret = re.Match([]byte(p))
 		return
 	}
 }

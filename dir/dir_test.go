@@ -52,4 +52,10 @@ func TestList(t *testing.T) {
 			t.Errorf("%s with ext .go", f)
 		}
 	}
+	fs = List("..", WithReg(`.*\.go`))
+	for _, f := range fs {
+		if !strings.HasSuffix(f, ".go") {
+			t.Errorf("%s not with ext .*\\.go", f)
+		}
+	}
 }
