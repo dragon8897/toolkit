@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 )
 
 func Exist(f string) (exist bool) {
@@ -34,4 +35,9 @@ func MD5(f string) (m string, err error) {
 	hashInBytes := hash.Sum(nil)[:16]
 	m = hex.EncodeToString(hashInBytes)
 	return
+}
+
+func NameNoExt(f string) (n string) {
+	ext := filepath.Ext(f)
+	return f[:len(f)-len(ext)]
 }
