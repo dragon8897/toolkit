@@ -18,6 +18,13 @@ func TestExist(t *testing.T) {
 }
 
 func TestMD5(t *testing.T) {
+	_, err := MD5("../README.md")
+	if err != nil {
+		t.Errorf("md5 err: %+v", err)
+	}
+}
+
+func TestNameNoExt(t *testing.T) {
 	var tests = []struct {
 		f string
 		n string
@@ -32,12 +39,5 @@ func TestMD5(t *testing.T) {
 		if NameNoExt(tt.f) != tt.n {
 			t.Errorf("name no ext failed: %v, %v", tt.f, tt.n)
 		}
-	}
-}
-
-func TestNameNoExt(t *testing.T) {
-	n := NameNoExt("dir/note.txt")
-	if n != "dir/note" {
-		t.Errorf("name no ext")
 	}
 }
