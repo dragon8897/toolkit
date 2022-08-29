@@ -1,6 +1,7 @@
 package dir
 
 import (
+	"os"
 	"strings"
 	"testing"
 )
@@ -56,6 +57,60 @@ func TestList(t *testing.T) {
 	for _, f := range fs {
 		if !strings.HasSuffix(f, ".go") {
 			t.Errorf("%s not with ext .*\\.go", f)
+		}
+	}
+}
+
+func TestExist(t *testing.T) {
+	var tests = []struct {
+		d string
+		e bool
+	}{
+		{
+			".",
+			true,
+		},
+		{
+			"../file",
+			true,
+		},
+		{
+			"../test",
+			false,
+		},
+	}
+	for _, test := range tests {
+		if Exist(test.d) != test.e {
+			t.Errorf("Exist : dir %s ret %v", test.d, test.e)
+		}
+	}
+}
+
+func TestEnsureDir(t *testing.T) {
+	var tests = []struct {
+		d string
+		c bool
+	}{
+		{
+			"../dir",
+			false,
+		},
+		{
+			"../file",
+			false,
+		},
+		{
+			"../test",
+			true,
+		},
+	}
+	for _, test := range tests {
+		c := EnsureDir(test.d)
+		if c {
+			os.Remove(test.d)
+		}
+		if c != test.c {
+			t.Errorf("EnsureDir dir : %s created : %v", test.d, test.c)
 		}
 	}
 }

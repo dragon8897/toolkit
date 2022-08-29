@@ -109,3 +109,27 @@ func IsDir(d string) (ret bool) {
 	ret = s.IsDir()
 	return
 }
+
+func Exist(d string) (ret bool) {
+	s, err := os.Stat(d)
+	if os.IsNotExist(err) {
+		return
+	}
+	if err != nil {
+		return
+	}
+	ret = s.IsDir()
+	return
+}
+
+func EnsureDir(d string) (created bool) {
+	if Exist(d) {
+		return
+	}
+	err := os.Mkdir(d, os.ModePerm)
+	if err != nil {
+		return
+	}
+	created = true
+	return
+}
