@@ -41,3 +41,8 @@ func NameNoExt(f string) (n string) {
 	ext := filepath.Ext(f)
 	return f[:len(f)-len(ext)]
 }
+
+func BaseNoExt(f string) (n string) {
+	ext := filepath.Ext(f)
+	return filepath.Base(f[:len(f)-len(ext)])
+}
