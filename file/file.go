@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 	"path/filepath"
 )
@@ -20,7 +21,7 @@ func Exist(f string) (exist bool) {
 
 func MD5(f string) (m string, err error) {
 	if !Exist(f) {
-		err = fmt.Errorf("%s is not exist!", f)
+		err = fmt.Errorf("%s is not exist", f)
 		return
 	}
 	file, err := os.Open(f)
@@ -45,4 +46,21 @@ func NameNoExt(f string) (n string) {
 func BaseNoExt(f string) (n string) {
 	ext := filepath.Ext(f)
 	return filepath.Base(f[:len(f)-len(ext)])
+}
+
+func DownloadFile(url string, f string) (err error) {
+	resp, err := http.Get(url)
+	if err != nil {
+		return
+	}
+	defer resp.Body.Close()
+
+	out, err := os.Create(f)
+	if err != nil {
+		return
+	}
+	defer out.Close()
+
+	_, err = io.Copy(out, resp.Body)
+	return
 }

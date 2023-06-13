@@ -1,6 +1,9 @@
 package file
 
-import "testing"
+import (
+	"os"
+	"testing"
+)
 
 func TestExist(t *testing.T) {
 	var tests = []struct {
@@ -58,4 +61,12 @@ func TestBaseNoExt(t *testing.T) {
 			t.Errorf("name no ext failed: %v, %v", tt.f, tt.n)
 		}
 	}
+}
+
+func TestDownloadFile(t *testing.T) {
+	err := DownloadFile("https://d.sduang.top/painting/avatar/ffa2d29f5ce8cf1ab1e0b381cdf04a11.jpg_tbl.jpg", "avatar.jpg")
+	if err != nil {
+		t.Errorf("download file err: %+v", err)
+	}
+	os.Remove("avatar.jpg")
 }
