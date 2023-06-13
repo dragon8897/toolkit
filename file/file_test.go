@@ -64,7 +64,7 @@ func TestBaseNoExt(t *testing.T) {
 }
 
 func TestDownloadFile(t *testing.T) {
-	err := DownloadFile("https://d.sduang.top/painting/avatar/ffa2d29f5ce8cf1ab1e0b381cdf04a11.jpg_tbl.jpg", "avatar.jpg")
+	err := DownloadFile("https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png", "avatar.jpg")
 	if err != nil {
 		t.Errorf("download file err: %+v", err)
 	}
